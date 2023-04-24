@@ -11,6 +11,7 @@ public class Zombie : MonoBehaviour
     [SerializeField] private float initialHealth = 100f;
     private float currentHealth;
 
+
     private void Start()
     {
         currentHealth = initialHealth;
