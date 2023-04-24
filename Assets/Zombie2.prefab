@@ -1099,6 +1099,7 @@ GameObject:
   - component: {fileID: 8848973534808229722}
   - component: {fileID: 6281715726172354761}
   - component: {fileID: 6281715726172354760}
+  - component: {fileID: 6692374103570689576}
   m_Layer: 3
   m_Name: Zombie2
   m_TagString: Untagged
@@ -1122,7 +1123,7 @@ Transform:
   - {fileID: 8439006675154455065}
   - {fileID: 8947295471662058498}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -133.007, z: 0}
 --- !u!95 &6281715726172354761
 Animator:
@@ -1156,11 +1157,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c777fd45aba97e48b8c378fdd9f78ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  moveSpeed: 4
-  stoppingDistance: 2
-  retreatDistance: 1
-  initialHealth: 100
+  speed: 2
+  maxHealth: 100
+  currentHealth: 0
+--- !u!54 &6692374103570689576
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518747184587421001}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5688029442189471192
 GameObject:
   m_ObjectHideFlags: 0

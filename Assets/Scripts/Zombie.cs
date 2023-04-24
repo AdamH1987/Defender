@@ -1,55 +1,70 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public Transform Player;
-    public float moveSpeed = 2.0f;
-    public float stoppingDistance = 2.0f;
-    public float retreatDistance = 1.0f;
-    [SerializeField] private float initialHealth = 100f;
-    private float currentHealth;
+    public float speed = 2.0f;
+    public int maxHealth = 100;
+    public int currentHealth;
 
+    private Transform player;
+    private Rigidbody rb;
+    private Animator animator;
 
-    private void Start()
+    void Start()
     {
-        currentHealth = initialHealth;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        currentHealth = maxHealth;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Player == null)
+        // Move towards the player
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0; // Prevent zombie from tilting
+        direction.Normalize(); // Prevent faster movement when moving diagonally
+        rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+
+        // Rotate towards the player
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+
+        // Prevent the zombie from walking through objects
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.0f))
         {
-            return;
+            if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Player") && hit.collider.gameObject.layer != LayerMask.NameToLayer("Bullet"))
+            {
+                direction = hit.normal;
+                rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+            }
         }
 
-        if (Vector3.Distance(transform.position, Player.position) > stoppingDistance)
+        // Keep the zombie on the ground
+        RaycastHit groundHit;
+        if (Physics.Raycast(transform.position, -Vector3.up, out groundHit, 1.0f))
         {
-            transform.LookAt(Player);
-            transform.position = Vector3.MoveTowards(transform.position, Player.position, moveSpeed * Time.deltaTime);
-        }
-        else if (Vector3.Distance(transform.position, Player.position) < stoppingDistance && Vector3.Distance(transform.position, Player.position) > retreatDistance)
-        {
-            transform.position = this.transform.position;
-        }
-        else if (Vector3.Distance(transform.position, Player.position) < retreatDistance)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, Player.position, -moveSpeed * Time.deltaTime);
+            if (groundHit.distance > 0.1f)
+            {
+                rb.AddForce(Vector3.down * 10.0f, ForceMode.Acceleration);
+            }
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0f)
+        if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    private void Die()
+    void Die()
     {
         Destroy(gameObject);
     }
