@@ -33,13 +33,7 @@ public class Abilities : MonoBehaviour
     {
         Ability1Input();
         AbilityCooldown(ref currentAbility1Cooldown, ability1Cooldown, ref isAbility1Cooldown, abilityImage1, abilityText1);
-        print(isAbility1Cooldown);
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            TakeDamage(20);
-        }
-  
+        //print(isAbility1Cooldown);
     }
 
     private void Ability1Input()
@@ -48,7 +42,7 @@ public class Abilities : MonoBehaviour
         {
             isAbility1Cooldown = true;
             currentAbility1Cooldown = ability1Cooldown;
-            HealDamage(20);
+            HealDamage(1);
             Effect();
 
         }
@@ -118,12 +112,4 @@ public class Abilities : MonoBehaviour
             print("Error, no particle component found");
         }
     }
-
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        healthBar.SetHealth(currentHealth);
-    }
-
 }
