@@ -5,16 +5,18 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     bool player_detection = false;
+    public static bool gameInShop;
+    public GameObject ShopScreen;
 
     private void Update()
     {
        if (player_detection && Input.GetKeyDown(KeyCode.E))
         {
-            print("Test text");
+            gameInShop = !gameInShop;
+            ShopScreen.SetActive(false);
+            ShopOpen();
         }
-
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "FPSPlayer")
@@ -30,4 +32,19 @@ public class PlayerInteract : MonoBehaviour
             player_detection = false;
         }
     }
+
+    void ShopOpen()
+    {
+        if (gameInShop)
+        {
+            ShopScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            ShopScreen.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
 }

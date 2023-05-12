@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ZombieAttack : MonoBehaviour
 {
-    public int damageAmount = 1;
     float attackRange = 2f;
     float attackRate = 4.0f;
 
     private Transform playerTransform;
     private float nextAttackTime;
+    private int currentHealth;
+    public int damageAmount = 1;
+    public HealthBar healthBar;
+
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -17,7 +21,6 @@ public class ZombieAttack : MonoBehaviour
     private void Update()
     {
         CheckForAttack();
-
     }
 
 
@@ -37,17 +40,18 @@ public class ZombieAttack : MonoBehaviour
         }
     }
 
-    private void DoAttack()
+    public void DoAttack()
     {
-        print("do attack");
-        PlayerHealth playerHealth = playerTransform.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        currentHealth -= damageAmount;
+        healthBar.SetHealth(currentHealth);
+
+
+        if (currentHealth <= 0)
         {
-            playerHealth.TakeDamage(damageAmount);
+            SceneManager.LoadScene("Main menu");
+            Time.timeScale = 0f;
         }
-        else
-        {
-            print("script is null");
-        }    
     }
+
+
 }
