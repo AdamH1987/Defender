@@ -27,7 +27,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == "PlayerBody")
+        if (other.name == "FPSPlayer")
         {
             player_detection = false;
         }

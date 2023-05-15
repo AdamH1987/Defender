@@ -48,7 +48,7 @@ public class ZombieAttack : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            SceneManager.LoadScene("Main menu");
+            SceneManager.LoadScene("Death");
             Time.timeScale = 0f;
         }
     }
