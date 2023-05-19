@@ -57,8 +57,12 @@ namespace SlimUI.ModernMenu{
 		
 
 		public void  Start (){
+
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+
 			// check difficulty
-			if(PlayerPrefs.GetInt("NormalDifficulty") == 1){
+			if (PlayerPrefs.GetInt("NormalDifficulty") == 1){
 				difficultynormaltextLINE.gameObject.SetActive(true);
 				difficultyhardcoretextLINE.gameObject.SetActive(false);
 			}

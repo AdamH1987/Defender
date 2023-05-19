@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,5 +13,15 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = PmaxHealth;
         healthBar.SetHealth(currentHealth);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey("p"))
+        {
+            SceneManager.LoadScene("Main menu");
+        }
+        
+
     }
 }

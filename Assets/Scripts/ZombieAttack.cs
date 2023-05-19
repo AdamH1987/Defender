@@ -49,7 +49,7 @@ public class ZombieAttack : MonoBehaviour
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene("Death");
-            Time.timeScale = 0f;
+            
         }
     }
 
