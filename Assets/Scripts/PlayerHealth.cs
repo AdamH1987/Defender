@@ -15,13 +15,4 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    private void Update()
-    {
-        if (Input.GetKey("p"))
-        {
-            SceneManager.LoadScene("Main menu");
-        }
-        
-
-    }
 }

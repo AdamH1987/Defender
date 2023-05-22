@@ -38,11 +38,15 @@ public class PlayerInteract : MonoBehaviour
         if (gameInShop)
         {
             ShopScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0f;
         }
         else
         {
             ShopScreen.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             Time.timeScale = 1f;
         }
     }
